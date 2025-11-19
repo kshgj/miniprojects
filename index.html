@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ShopZone — Demo E‑commerce</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="topbar">
+      <div class="logo">ShopZone</div>
+      <div class="search">
+        <input id="searchInput" placeholder="Search for products, brands and more..." />
+        <button id="searchBtn">Search</button>
+      </div>
+      <div class="icons">
+        <button id="accountBtn" class="icon-btn">Account</button>
+        <button id="wishlistBtn" class="icon-btn">Wishlist <span id="wishlistCount" class="count">0</span></button>
+        <button id="cartBtn" class="icon-btn">Cart <span id="cartCount" class="count">0</span></button>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <ul id="categoryList" class="categories">
+        <!-- categories populated dynamically -->
+      </ul>
+      <div class="nav-actions">
+        <select id="sortSelect">
+          <option value="relevance">Sort: Relevance</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating-desc">Rating: High to Low</option>
+        </select>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="carousel" id="carousel">
+        <!-- slides injected dynamically -->
+      </div>
+    </section>
+
+    <section class="layout">
+      <aside class="filters">
+        <h3>Filters</h3>
+        <div class="filter-group">
+          <label>Category</label>
+          <select id="filterCategory">
+            <option value="all">All</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Price</label>
+          <div class="price-range">
+            <input id="minPrice" type="number" placeholder="Min" />
+            <span>—</span>
+            <input id="maxPrice" type="number" placeholder="Max" />
+          </div>
+          <button id="applyPrice">Apply</button>
+        </div>
+
+        <div class="filter-group">
+          <label>Minimum Rating</label>
+          <select id="filterRating">
+            <option value="0">Any</option>
+            <option value="4">4 ★ & up</option>
+            <option value="3">3 ★ & up</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Offers</label>
+          <div><input id="offerOnly" type="checkbox"> Only show offers</div>
+        </div>
+      </aside>
+
+      <section class="products-section">
+        <div class="controls">
+          <div id="resultsInfo"></div>
+          <div class="pagination-controls">
+            <button id="prevPage">‹ Prev</button>
+            <span id="pageInfo">1</span>
+            <button id="nextPage">Next ›</button>
+          </div>
+        </div>
+
+        <div id="productGrid" class="product-grid">
+          <!-- products injected dynamically -->
+        </div>
+      </section>
+    </section>
+
+  </main>
+
+  <!-- Quick view modal -->
+  <div id="modal" class="modal hidden" role="dialog" aria-hidden="true">
+    <div class="modal-content">
+      <button class="modal-close" id="closeModal">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Cart sidebar modal -->
+  <div id="cartPanel" class="panel hidden">
+    <div class="panel-header">
+      <h3>Your Cart</h3>
+      <button id="closeCart">Close</button>
+    </div>
+    <div id="cartItems" class="panel-body"></div>
+    <div class="panel-footer">
+      <div id="cartSummary"></div>
+      <button id="checkoutBtn" class="primary">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Order confirmation -->
+  <div id="orderConfirm" class="modal hidden">
+    <div class="modal-content">
+      <h2>Order Placed</h2>
+      <p id="orderMessage"></p>
+      <button id="closeOrder">Close</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div>© ShopZone demo — built with HTML, CSS & JS</div>
+    <div>Features: search, filters, cart, wishlist, checkout (mock)</div>
+  </footer>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
