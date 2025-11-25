@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    input[type="number"]{
+        -moz-appearance: textfield;
+    }
+body {margin:0; padding:0; font-family:'Inter',sans-serif; background:white;}
+.header {background:lightblue; padding:1px 15px; color:black; display:flex; align-items:center; box-shadow:0 4px 12px rgba(0,0,0,0.18);}
+.container {max-width:1000px; margin:40px auto; background:white; padding:40px; border-radius:18px; box-shadow:0 4px 20px rgba(0,0,0,0.07);}
+h2 {text-align:center; color:lightcoral; font-size:26px; font-weight:700; margin-bottom:28px;}
+.section-title {margin:20px 0 10px; padding-bottom:6px; font-weight:600; font-size:17px; border-bottom:2px solid grey; color:lightcoral;}
+.form-group {margin-bottom:18px;}
+label {display:block; margin-bottom:6px; font-size:15px; font-weight:550;}
+input, select {width:50%; padding:14px; border:1px solid lightgrey; border-radius:10px; font-size:15px; box-sizing:border-box; transition:0.23s ease; background:lightgrey;}
+input:focus, select:focus {outline:none; border-color:white; background:white; box-shadow:0 0 0 4px rgba(0,109,209,0.15);}
+.error {color:red; font-size:13px; margin-top:4px; display:none;}
+.form-grid {display:grid; grid-template-columns:1fr 1fr; gap:24px 40px;}
+.full-width {grid-column:span 2;}
+button {padding:14px; background:blue; color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer;}
+button:hover {background:darkblue;}
+.popup {position:fixed; top:20px; right:20px; background:green; color:white; padding:12px 18px; border-radius:8px; z-index:9999; opacity:0; transition:0.4s;}
+</style>
+<script src="format.js"></script>
+</head>
+<body>
+
+<div class="header">
+<h1></h1>
+</div>
+
+<div class="container">
+<h2>Lead Basic Information</h2>
+<form id="leadForm">
+<div class="form-grid">
+
+<div class="section-title full-width">Basic Information</div>
+<div class="form-group">
+<label>Lead Name*</label>
+<input type="text" id="leadName">
+<span class="error" id="leadNameErr"></span>
+</div>
+
+<div class="form-group">
+<label>Company Name*</label>
+<input type="text" id="companyName">
+<span class="error" id="companyNameErr"></span>
+</div>
+
+<div class="form-group">
+<label>Email*</label>
+<input type="text" id="email">
+<span class="error" id="emailErr"></span>
+</div>
+
+<div class="form-group">
+<label>Alternate Email</label>
+<input type="text" id="altEmail">
+<span class="error" id="altEmailErr"></span>
+</div>
+
+<div class="form-group">
+<label>Phone Number*</label>
+<input type="text" id="phone">
+<span class="error" id="phoneErr"></span>
+</div>
+
+<div class="form-group">
+<label>Alternate Phone</label>
+<input type="text" id="altPhone">
+<span class="error" id="altPhoneErr"></span>
+</div>
+
+<div class="form-group">
+<label>Lead Source*</label>
+<select id="leadSource">
+<option value="">Select</option>
+<option>Website</option>
+<option>Facebook</option>
+<option>Referral</option>
+<option>Existing Customer</option>
+<option>Walk-in</option>
+<option>Partner</option>
+<option>WhatsApp</option>
+</select>
+<span class="error" id="leadSourceErr"></span>
+</div>
+
+<div class="section-title full-width">Address Information</div>
+<div class="form-group">
+<label>Country*</label>
+<select id="country">
+<option value="">Select</option>
+<option>India</option>
+</select>
+<span class="error" id="countryErr"></span>
+</div>
+
+<div class="form-group">
+<label>State*</label>
+<select id="state">
+<option value="">Select</option>
+<option>Maharashtra</option>
+<option>Karnataka</option>
+<option>Delhi</option>
+<option>Tamil Nadu</option>
+<option>Uttar Pradesh</option>
+</select>
+<span class="error" id="stateErr"></span>
+</div>
+
+<div class="form-group">
+<label>City*</label>
+<input type="text" id="city">
+<span class="error" id="cityErr"></span>
+</div>
+
+<div class="form-group">
+<label>Pincode*</label>
+<input type="text" id="pincode">
+<span class="error" id="pincodeErr"></span>
+</div>
+
+<div class="form-group">
+<label>Full Address*</label>
+<input type="text" id="fullAddress">
+<span class="error" id="fullAddressErr"></span>
+</div>
+
+<div class="section-title full-width">Lead Qualification Details</div>
+<div class="form-group">
+<label>Lead Stage*</label>
+<select id="leadStage">
+<option value="">Select</option>
+<option>New</option>
+<option>Contacted</option>
+<option>Interested</option>
+<option>Qualified</option>
+<option>Proposal Sent</option>
+<option>Negotiation</option>
+<option>Converted</option>
+<option>Lost</option>
+</select>
+<span class="error" id="leadStageErr"></span>
+</div>
+
+<div class="form-group">
+<label>Lead Score*</label>
+<input type="text" id="leadScore">
+<span class="error" id="leadScoreErr"></span>
+</div>
+
+<div class="form-group">
+<label>Industry Type*</label>
+<select id="industryType">
+<option value="">Select</option>
+<option>IT</option>
+<option>Retail</option>
+<option>Manufacturing</option>
+<option>Logistics</option>
+<option>Education</option>
+<option>Finance</option>
+</select>
+<span class="error" id="industryErr"></span>
+</div>
+
+<div class="form-group">
+<label>Expected Revenue*</label>
+<input type="number" id="expRevenue">
+<span class="error" id="expRevenueErr"></span>
+</div>
+
+<div class="form-group">
+<label>Min Budget*</label>
+<input type="text" id="minBudget">
+</div>
+
+<div class="form-group">
+<label>Max Budget*</label>
+<input type="text" id="maxBudget">
+<span class="error" id="budgetErr"></span>
+</div>
+
+<div class="full-width">
+<button type="submit">Submit Registration</button>
+</div>
+</div>
+</form>
+</div>
+
+<script>
+function showPopup(msg) {
+    const popup = $('<div class="popup">'+msg+'</div>');
+    $("body").append(popup);
+    setTimeout(()=>popup.css("opacity","1"),50);
+    setTimeout(()=>popup.css("opacity","0"),2500);
+    setTimeout(()=>popup.remove(),3000);
+}
+
+function setValid(field,error){ $(field).css("border-color","green"); $(error).hide(); }
+function setInvalid(field,error,msg){ $(field).css("border-color","red"); $(error).text(msg).show(); }
+
+function validateField() {
+    let valid = true;
+    const leadName = $("#leadName").val().trim();
+    const companyName = $("#companyName").val().trim();
+    const email = $("#email").val().trim();
+    const altEmail = $("#altEmail").val().trim();
+    const phone = $("#phone").val().trim();
+    const altPhone = $("#altPhone").val().trim();
+    const leadSource = $("#leadSource").val();
+    const country = $("#country").val();
+    const state = $("#state").val();
+    const city = $("#city").val().trim();
+    const pincode = $("#pincode").val().trim();
+    const fullAddress = $("#fullAddress").val().trim();
+    const leadStage = $("#leadStage").val();
+    const leadScore = $("#leadScore").val().trim();
+    const industryType = $("#industryType").val();
+    const expRevenue = $("#expRevenue").val().trim();
+    const minBudget = $("#minBudget").val().trim();
+    const maxBudget = $("#maxBudget").val().trim();
+
+    if(!/^[A-Za-z ]{3,}$/.test(leadName)){setInvalid("#leadName","#leadNameErr","Min 3 letters"); valid=false;} else setValid("#leadName","#leadNameErr");
+    if(!/^[A-Za-z0-9 ]{2,}$/.test(companyName)){setInvalid("#companyName","#companyNameErr","Min 2 letters or numbers"); valid=false;} else setValid("#companyName","#companyNameErr");
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){setInvalid("#email","#emailErr","Invalid email"); valid=false;} else setValid("#email","#emailErr");
+
+    if(altEmail){
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(altEmail) || altEmail === email){
+            setInvalid("#altEmail","#altEmailErr","Invalid or same as primary");
+            valid = false;
+        } else {
+            setValid("#altEmail","#altEmailErr");
+        }
+    } else {
+        $("#altEmail").css("border-color","lightgrey");
+        $("#altEmailErr").hide();
+    }
+
+    if(!/^[6-9]\d{9}$/.test(phone)){setInvalid("#phone","#phoneErr","Must start with 6-9 and 10 digits"); valid=false;} else setValid("#phone","#phoneErr");
+    
+    if(altPhone){
+        if(!/^[6-9]\d{9}$/.test(altPhone) || altPhone===phone){
+            setInvalid("#altPhone","#altPhoneErr","Invalid or same as primary");
+            valid = false;
+        } else {
+            setValid("#altPhone","#altPhoneErr");
+        }
+    } else {
+        $("#altPhone").css("border-color","lightgrey");
+        $("#altPhoneErr").hide();
+    }
+
+    if(!leadSource){setInvalid("#leadSource","#leadSourceErr","Required"); valid=false;} else setValid("#leadSource","#leadSourceErr");
+    if(!country){setInvalid("#country","#countryErr","Required"); valid=false;} else setValid("#country","#countryErr");
+    if(!state){setInvalid("#state","#stateErr","Required"); valid=false;} else setValid("#state","#stateErr");
+    if(!/^[A-Za-z ]+$/.test(city)){setInvalid("#city","#cityErr","Alphabets only"); valid=false;} else setValid("#city","#cityErr");
+    if(!/^\d{6}$/.test(pincode)){setInvalid("#pincode","#pincodeErr","6 digits only"); valid=false;} else setValid("#pincode","#pincodeErr");
+    if(fullAddress.length<10){setInvalid("#fullAddress","#fullAddressErr","Min 10 chars"); valid=false;} else setValid("#fullAddress","#fullAddressErr");
+    if(!leadStage){setInvalid("#leadStage","#leadStageErr","Required"); valid=false;} else setValid("#leadStage","#leadStageErr");
+    if(!(leadScore>=1 && leadScore<=100)){setInvalid("#leadScore","#leadScoreErr","1-100"); valid=false;} else setValid("#leadScore","#leadScoreErr");
+    if(!industryType){setInvalid("#industryType","#industryErr","Required"); valid=false;} else setValid("#industryType","#industryErr");
+
+    if(!(expRevenue > 0)){setInvalid("#expRevenue","#expRevenueErr","Positive number required"); valid=false;} else setValid("#expRevenue","#expRevenueErr");
+    if(!(minBudget > 0)){setInvalid("#minBudget","#budgetErr","Min Budget required and > 0"); valid=false;} else setValid("#minBudget","#budgetErr");
+    if(!(maxBudget > 0)){setInvalid("#maxBudget","#budgetErr","Max Budget required and > 0"); valid=false;}
+    else if(Number(maxBudget) <= Number(minBudget)){setInvalid("#maxBudget","#budgetErr","Max Budget must be greater than Min Budget"); valid=false;}
+    else {setValid("#maxBudget","#budgetErr");}
+
+    return valid;
+}
+
+function liveValidation(){
+
+    // Prevent typing beyond limits (new)
+    $("#city, #leadName, #companyName, #email, #fullAddress").on("input", function(){
+        if (this.value.length > 25) this.value = this.value.slice(0,25);
+    });
+
+    $("#pincode").on("input", function(){
+        this.value = this.value.replace(/\D/g,'').slice(0,6);
+    });
+
+    $("#leadScore").on("input", function(){
+        this.value = this.value.replace(/\D/g,'').slice(0,3);
+    });
+
+    $("#expRevenue").on("input", function(){
+        let v = Number(this.value.replace(/\D/g,''));
+        if (v > 900000) v = 900000;
+        this.value = v;
+    });
+
+    $("#leadName, #companyName, #email, #altEmail, #phone, #altPhone, #city, #pincode, #fullAddress, #leadScore, #expRevenue, #minBudget, #maxBudget").on("input",validateField);
+    $("#leadSource, #country, #state, #leadStage, #industryType").on("change",validateField);
+
+    $("#leadName").on("keypress", function(e){ if(!/[A-Za-z ]/.test(String.fromCharCode(e.which))) e.preventDefault(); });
+    $("#companyName").on("keypress", function(e){ if(!/[A-Za-z0-9 ]/.test(String.fromCharCode(e.which))) e.preventDefault(); });
+    $("#city").on("keypress", function(e){ if(!/[A-Za-z ]/.test(String.fromCharCode(e.which))) e.preventDefault(); });
+    $("#pincode").on("keypress", function(e){ if(!/[0-9]/.test(String.fromCharCode(e.which))) e.preventDefault(); });
+    $("#leadScore").on("keypress", function(e){ if(!/[0-9]/.test(String.fromCharCode(e.which))) e.preventDefault(); });
+    $("#expRevenue, #minBudget, #maxBudget").on("keypress", function(e){ if(!/[0-9.]/.test(String.fromCharCode(e.which))) e.preventDefault(); });
+
+    
+    $("#phone, #altPhone").on("input", function(){
+        this.value = this.value.replace(/\D/g,''); 
+        if(this.value.length > 10) this.value = this.value.slice(0,10); 
+    });
+    $("#phone, #altPhone").on("keypress", function(e){
+        const char = String.fromCharCode(e.which);
+        if(!/[0-9]/.test(char)) e.preventDefault();
+        if(this.value.length===0 && !/[6-9]/.test(char)) e.preventDefault(); 
+    });
+}
+
+$(document).ready(function(){
+
+    // Maxlength constraints (added)
+    $("#leadName").attr("maxlength", "25");
+    $("#companyName").attr("maxlength", "25");
+    $("#email").attr("maxlength", "25");
+    $("#city").attr("maxlength", "25");
+    $("#fullAddress").attr("maxlength", "25");
+    $("#leadScore").attr("maxlength", "3");
+    $("#pincode").attr("maxlength", "6");
+    $("#expRevenue").attr("max", "900000");
+
+    liveValidation();
+
+    $("#leadForm").submit(function(e){
+        e.preventDefault();
+        if(validateField()) {
+            showPopup("Form submitted successfully!");
+            $("#leadForm")[0].reset();
+            $("input, select").css("border-color","lightgrey");
+        }
+    });
+});
+</script>
+</body>
+</html>
